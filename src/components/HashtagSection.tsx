@@ -1,4 +1,4 @@
- import { useState } from 'react';
+ import { useState, forwardRef } from 'react';
  import { Copy, Check, Hash } from 'lucide-react';
  import { Button } from '@/components/ui/button';
  import { toast } from 'sonner';
@@ -7,7 +7,8 @@
    hashtags: string[];
  }
  
- export function HashtagSection({ hashtags }: HashtagSectionProps) {
+ export const HashtagSection = forwardRef<HTMLDivElement, HashtagSectionProps>(
+   function HashtagSection({ hashtags }, ref) {
    const [copied, setCopied] = useState(false);
  
    const handleCopyAll = async () => {
@@ -18,8 +19,8 @@
      setTimeout(() => setCopied(false), 2000);
    };
  
-   return (
-     <div className="space-y-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
+     return (
+       <div ref={ref} className="space-y-4 animate-fade-in" style={{ animationDelay: '200ms' }}>
        <div className="flex items-center justify-between">
          <div className="flex items-center gap-2">
            <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
@@ -46,6 +47,7 @@
            </span>
          ))}
        </div>
-     </div>
-   );
- }
+       </div>
+     );
+   }
+ );
