@@ -1,9 +1,6 @@
- import { useState } from 'react';
  import { PostIdea } from '@/types/content';
- import { Image, Video, Clock, LayoutGrid, Copy, Check, Sparkles } from 'lucide-react';
- import { Button } from '@/components/ui/button';
+ import { Image, Video, Clock, LayoutGrid } from 'lucide-react';
  import { cn } from '@/lib/utils';
- import { toast } from 'sonner';
  
  interface PostIdeaCardProps {
    idea: PostIdea;
@@ -33,23 +30,10 @@
  
  export function PostIdeaCard({ idea, index }: PostIdeaCardProps) {
    const Icon = typeIcons[idea.type];
-   const [copied, setCopied] = useState(false);
- 
-   const handleCopyIdea = async () => {
-     const text = `${typeLabels[idea.type]}: ${idea.title}\n\n${idea.description}`;
-     await navigator.clipboard.writeText(text);
-     setCopied(true);
-     toast.success('Post idea copied!');
-     setTimeout(() => setCopied(false), 2000);
-   };
- 
-   const handleUseTemplate = () => {
-     toast.success(`Template for "${idea.title}" selected! Ready to create.`);
-   };
  
    return (
      <div
-       className="group p-5 rounded-xl bg-card shadow-card border border-border/50 hover:shadow-elevated transition-all duration-300 animate-fade-in"
+       className="p-5 rounded-xl bg-card shadow-card border border-border/50 hover:shadow-elevated transition-all duration-300 animate-fade-in"
        style={{ animationDelay: `${(index + 3) * 100}ms` }}
      >
        <div className="flex items-start gap-4">
@@ -64,26 +48,6 @@
            </div>
            <h4 className="font-semibold text-foreground mb-1">{idea.title}</h4>
            <p className="text-sm text-muted-foreground leading-relaxed">{idea.description}</p>
-           <div className="flex gap-2 mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-             <Button
-               variant="outline"
-               size="sm"
-               onClick={handleCopyIdea}
-               className="gap-1.5"
-             >
-               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-               Copy
-             </Button>
-             <Button
-               variant="gradient"
-               size="sm"
-               onClick={handleUseTemplate}
-               className="gap-1.5"
-             >
-               <Sparkles className="w-3.5 h-3.5" />
-               Use Template
-             </Button>
-           </div>
          </div>
        </div>
      </div>

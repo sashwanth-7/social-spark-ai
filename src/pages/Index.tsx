@@ -3,8 +3,6 @@ import { Sparkles, Zap } from 'lucide-react';
 import { GeneratorForm } from '@/components/GeneratorForm';
 import { ResultsSection } from '@/components/ResultsSection';
 import { FavoritesDrawer } from '@/components/FavoritesDrawer';
- import { ThemeToggle } from '@/components/ThemeToggle';
- import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 import { useFavorites } from '@/hooks/useFavorites';
 import { generateMockContent } from '@/lib/mockContent';
 import { ContentRequest, GeneratedContent, Platform } from '@/types/content';
@@ -53,10 +51,7 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Social Media Generator</p>
             </div>
           </div>
-           <div className="flex items-center gap-2">
-             <ThemeToggle />
-             <FavoritesDrawer favorites={favorites} onRemove={removeFavorite} />
-           </div>
+          <FavoritesDrawer favorites={favorites} onRemove={removeFavorite} />
         </div>
       </header>
 
@@ -90,9 +85,7 @@ const Index = () => {
 
             {/* Results */}
             <div className="min-h-[400px]">
-             {isLoading ? (
-               <LoadingSkeleton />
-             ) : content ? (
+              {content ? (
                 <ResultsSection
                   content={content}
                   platform={currentPlatform}
